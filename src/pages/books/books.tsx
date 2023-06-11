@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 const Books = () => {
     const [books, setBooks] = useState([]);
     const navigation = useNavigation();
+    const [isUpdate, setIsUpdate] = useState(false);
 
     const fetchBooks = () => {
         getBooks()
@@ -21,6 +22,10 @@ const Books = () => {
         fetchBooks();
     }, []);
 
+    useEffect(() => {
+        fetchBooks()
+    }, [isUpdate])
+
     const renderBook = ({ item }) => {
         if (item.title) {
             return (
@@ -32,7 +37,7 @@ const Books = () => {
                         <Text style={styles.bookPrice}>Price: {item.price}</Text>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("UpdateBook", { book: item })}>
+                        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("UpdateBook", { book: item, setIsUpdate: setIsUpdate, isUpdate: isUpdate })}>
                             <Text style={styles.buttonLabel}>Update</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={[styles.button, {backgroundColor: 'red'}]} onPress={() => handleDeleteBook(item._id)}>
@@ -46,7 +51,6 @@ const Books = () => {
 
     const handleDeleteBook = (bookId) => {
         deleteBook(bookId).then((response) => {
-            console.log(response)
             if(response.status == 200) {
                 Alert.alert('Kitap kaydı silindi');
                 fetchBooks();

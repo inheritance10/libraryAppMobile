@@ -35,6 +35,30 @@ const createBook = async (data) => {
     }
 };
 
+const updateBook = async (data) => {
+    try {
+        // Token'i AsyncStorage'den al
+        const token = await getToken();
+
+
+        // API isteğini gönder
+        const response = await apiManager.put('/books/'+ data._id, {
+            "title": String(data.title),
+            "description": String(data.description),
+            "author": String(data.author),
+            "price": Number(data.price),
+            "category": String(data.category),
+        }, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            }
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
 const deleteBook = async (id) => {
     try {
         // Token'i AsyncStorage'den al
@@ -54,4 +78,4 @@ const deleteBook = async (id) => {
 
 
 
-export { getBooks, createBook, deleteBook };
+export { getBooks, createBook, deleteBook, updateBook };

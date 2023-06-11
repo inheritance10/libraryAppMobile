@@ -1,31 +1,36 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, Alert} from "react-native";
 import { updateBook } from "../../api/books";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 const UpdateBook = () => {
     const navigation = useNavigation();
     const route = useRoute();
-    const { book } = route.params;
+
+    const { book, setIsUpdate, isUpdate } = route.params;
     const [title, setTitle] = useState(book.title);
     const [author, setAuthor] = useState(book.author);
     const [description, setDescription] = useState(book.description);
     const [price, setPrice] = useState(String(book.price));
 
     const handleUpdateBook = () => {
-        const updatedBook = {
+        let data = {
             _id: book._id,
             title,
             author,
             description,
             price,
-            category: book.category,
+            category: 'Adventure',
         };
 
-        updateBook(updatedBook)
+        updateBook(data)
             .then((response) => {
-                // Handle successful update
-                navigation.goBack();
+                if(response.status == 200) {
+                    Alert.alert('Kitap başarıyla güncellendi');
+                    setIsUpdate(!isUpdate);
+                    navigation.navigate('Books');
+                }
+
             })
             .catch((error) => {
                 console.log(error);

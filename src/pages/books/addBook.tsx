@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {View, TextInput, Button, StyleSheet, Alert} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {createBook} from "../../api/books";
 
 const AddBook = () => {
@@ -10,6 +10,8 @@ const AddBook = () => {
     const [price, setPrice] = useState('');
 
     const navigation = useNavigation();
+    const route = useRoute();
+    const {isAddBook, setIsAddBook} = route.params;
 
     const handleAddBook = () => {
         let data = {
@@ -21,14 +23,14 @@ const AddBook = () => {
 
         createBook(data).then((response) => {
             if(response.status == 201){
+                setIsAddBook(!isAddBook);
                 Alert.alert('Kitap kaydı başarılı');
+                navigation.navigate('Books')
+
             }
         }).catch((error) => {
             console.log(error)
         })
-
-        // Kitap eklendikten sonra ana sayfaya yönlendir
-       // navigation.navigate('Home');
     };
 
     return (

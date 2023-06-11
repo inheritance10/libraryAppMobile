@@ -7,6 +7,7 @@ const Books = () => {
     const [books, setBooks] = useState([]);
     const navigation = useNavigation();
     const [isUpdate, setIsUpdate] = useState(false);
+    const [isAddBook, setIsAddBook] = useState(false);
 
     const fetchBooks = () => {
         getBooks()
@@ -25,6 +26,10 @@ const Books = () => {
     useEffect(() => {
         fetchBooks()
     }, [isUpdate])
+
+    useEffect(() => {
+        fetchBooks()
+    }, [isAddBook])
 
     const renderBook = ({ item }) => {
         if (item.title) {
@@ -64,7 +69,7 @@ const Books = () => {
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerText}>Library App</Text>
-                <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate("AddBook")}>
+                <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate("AddBook",{ setIsAddBook: setIsAddBook, isAddBook: isAddBook })}>
                     <Text style={styles.addButtonLabel}>Add Book</Text>
                 </TouchableOpacity>
             </View>

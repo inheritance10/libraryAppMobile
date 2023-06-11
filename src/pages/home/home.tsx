@@ -12,8 +12,8 @@ const Home = () => {
             case 'Books':
                 navigation.navigate('Books')
                 break;
-            case 'Authors':
-                // Authors sayfasına yönlendirme işlemi burada gerçekleştirilebilir
+            case 'Users':
+                navigation.navigate('Users')
                 break;
             case 'Favorites':
                 // Favorites sayfasına yönlendirme işlemi burada gerçekleştirilebilir
@@ -33,8 +33,8 @@ const Home = () => {
                 <TouchableOpacity style={styles.menuItem} onPress={() => handleMenuItemPress('Books')}>
                     <Text style={styles.menuItemText}>Books</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuItem} onPress={() => handleMenuItemPress('Authors')}>
-                    <Text style={styles.menuItemText}>Authors</Text>
+                <TouchableOpacity style={styles.menuItem} onPress={() => handleMenuItemPress('Users')}>
+                    <Text style={styles.menuItemText}>Users</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.menuItem} onPress={() => handleMenuItemPress('Favorites')}>
                     <Text style={styles.menuItemText}>Favorites</Text>

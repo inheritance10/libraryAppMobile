@@ -12,12 +12,16 @@ const Login = () => {
 
     const handleLogin = () => {
     let data = {
-        email: email,
-        password: password
+        email: 'ali@gmail.com',
+        password: '151001'
+        /*email: email,
+        password: password*/
     }
 
     login(data).then((response) => {
         if(response.status == 201) {
+            console.log(response.data);
+
             setToken(response.data.token);
             navigation.navigate("DashboardStack");
         }

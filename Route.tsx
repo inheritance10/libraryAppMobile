@@ -14,6 +14,7 @@ import Login from './src/pages/login/login';
 import Home from './src/pages/home/home';
 import Books from "./src/pages/books/books";
 import AddBook from "./src/pages/books/addBook";
+import UpdateBook from "./src/pages/books/updateBook";
 
 
 const Stack = createNativeStackNavigator();
@@ -44,6 +45,7 @@ const DashboardStack = () => {
             <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
             <Stack.Screen name="Books" component={Books} />
             <Stack.Screen name="AddBook" component={AddBook} />
+            <Stack.Screen name="UpdateBook" component={UpdateBook} />
         </Stack.Navigator>
     );
 }

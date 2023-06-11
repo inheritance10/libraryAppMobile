@@ -35,6 +35,23 @@ const createBook = async (data) => {
     }
 };
 
+const deleteBook = async (id) => {
+    try {
+        // Token'i AsyncStorage'den al
+        const token = await getToken();
+
+        // API isteğini gönder
+        const response = await apiManager.delete('/books/' + id,  {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            }
+        });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
 
 
-export { getBooks, createBook };
+
+export { getBooks, createBook, deleteBook };
